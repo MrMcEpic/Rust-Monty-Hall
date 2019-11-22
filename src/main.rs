@@ -49,13 +49,11 @@ fn switch_box(tries: u64) -> (u64, u64) {
 	(val, val_lose)
 }
 
-fn main() {
-	let tries = get_input();
-	let (no_switch_wins, no_switch_losses) = no_switch_box(tries);
-	let (switch_wins, switch_losses) = switch_box(tries);
-	print_out(no_switch_wins, no_switch_losses, false);
-	print_out(switch_wins, switch_losses, true);
-	hang();
+fn get_input() -> u64 {
+	println!("Please input number of attempts");
+	let mut input = String::new();
+	io::stdin().read_line(&mut input).expect("Line read error");
+	input.trim().parse::<u64>().unwrap()
 }
 
 fn print_out(wins: u64, losses: u64, switch: bool) {
@@ -70,15 +68,17 @@ fn print_out(wins: u64, losses: u64, switch: bool) {
 	);
 }
 
-fn get_input() -> u64 {
-	println!("Please input number of attempts");
-	let mut input = String::new();
-	io::stdin().read_line(&mut input).expect("Line read error");
-	input.trim().parse::<u64>().unwrap()
-}
-
 fn hang() {
 	println!("Press enter to exit");
 	let mut input = String::new();
 	io::stdin().read_line(&mut input).expect("Line read error");
+}
+
+fn main() {
+	let tries = get_input();
+	let (no_switch_wins, no_switch_losses) = no_switch_box(tries);
+	let (switch_wins, switch_losses) = switch_box(tries);
+	print_out(no_switch_wins, no_switch_losses, false);
+	print_out(switch_wins, switch_losses, true);
+	hang();
 }
