@@ -2,6 +2,7 @@
 use rand::Rng;
 
 fn new_boxes() -> [bool; 3] {
+	//generates a list of 3 boxes all as false, then turns a random one true
 	let mut boxes = [false, false, false];
 	boxes[rand::thread_rng().gen_range(0, 3)] = true;
 	boxes
@@ -37,9 +38,9 @@ pub fn switch_box(tries: u64) -> (u64, u64) {
 			continue;
 		} else {
 			let mut options: Vec<usize> = vec![0, 1, 2];
-			options.remove_item(&first_pick.0);
-			options.drain_filter(|x| !boxes[*x]);
-			//options = options.into_iter().filter(|x| boxes[*x]).collect();
+			options.remove_item(&first_pick.0); //removes their inital box pick from a list of possible boxes
+			options.drain_filter(|x| !boxes[*x]); //removes a false box from list of possible boxes
+									  //options = options.into_iter().filter(|x| boxes[*x]).collect(); //other possible solution
 			if boxes[options[0]] {
 				val += 1;
 			}
