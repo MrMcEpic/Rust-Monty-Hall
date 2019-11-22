@@ -40,7 +40,7 @@ fn switch_box(tries: u64) -> (u64, u64) {
 			let mut options: Vec<usize> = vec![0, 1, 2];
 			options.remove_item(&first_pick.0);
 			options.drain_filter(|x| !boxes[*x]);
-			//options = options.into_iter().filter(|x| holder[*x]).collect();
+			//options = options.into_iter().filter(|x| boxes[*x]).collect();
 			if boxes[options[0]] {
 				val += 1;
 			}
