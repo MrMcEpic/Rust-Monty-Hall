@@ -53,23 +53,21 @@ fn main() {
 	let tries = get_input();
 	let (no_switch_wins, no_switch_losses) = no_switch_box(tries);
 	let (switch_wins, switch_losses) = switch_box(tries);
-	println!(
-		"No switch wins {}/{}... {}:{}, {}% wins",
-		no_switch_wins,
-		no_switch_wins + no_switch_losses,
-		no_switch_wins,
-		no_switch_losses,
-		(no_switch_wins as f64 / (no_switch_wins + no_switch_losses) as f64) * 100f64
-	);
-	println!(
-		"Switch wins {}/{}... {}:{}, {}% wins",
-		switch_wins,
-		switch_wins + switch_losses,
-		switch_wins,
-		switch_losses,
-		(switch_wins as f64 / (switch_wins + switch_losses) as f64) * 100f64
-	);
+	print_out(no_switch_wins, no_switch_losses, false);
+	print_out(switch_wins, switch_losses, true);
 	hang();
+}
+
+fn print_out(wins: u64, losses: u64, switch: bool) {
+	println!(
+		"{} wins {}/{}... {}:{}, {}% wins",
+		if switch { "Switch" } else { "No Switch" },
+		wins,
+		wins + losses,
+		wins,
+		losses,
+		(wins as f64 / (wins + losses) as f64) * 100f64
+	);
 }
 
 fn get_input() -> u64 {
