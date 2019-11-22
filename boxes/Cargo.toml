@@ -1,8 +1,8 @@
 [package]
-name = "monty_hall"
+name = "boxes"
 version = "0.1.0"
 authors = ["MrMcEpic <45011453+MrMcEpic@users.noreply.github.com>"]
 edition = "2018"
 
 [dependencies]
-boxes = {path = "./boxes"}
+rand = "*"
