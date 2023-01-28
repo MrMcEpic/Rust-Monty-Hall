@@ -1,11 +1,29 @@
 #![feature(drain_filter)]
 use rand::Rng;
+//TODO Set up switch2
 
 fn new_boxes() -> [bool; 3] {
     //generates a list of 3 boxes all as false, then turns a random one true
     let mut boxes = [false, false, false];
     boxes[rand::thread_rng().gen_range(0, 3)] = true;
     boxes
+}
+
+fn get_box(tries: u64) -> (u64, u64, u64, u64) {
+    let mut no_win = 0;
+    let mut no_loss = 0;
+    let mut win = 0;
+    let mut loss = 0;
+    for _ in 0..tries {
+        let boxes = new_boxes();
+        let pick = boxes[rand::thread_rng().gen_range(0, 3)];
+        if no_switch_box2(pick) {
+            no_win += 1;
+        } else {
+            no_loss += 1;
+        }
+    }
+    (win, loss, no_win, no_loss)
 }
 
 pub fn no_switch_box(tries: u64) -> (u64, u64) {
@@ -21,6 +39,14 @@ pub fn no_switch_box(tries: u64) -> (u64, u64) {
         }
     }
     (val, val_lose)
+}
+
+fn no_switch_box2(pick: bool) -> bool {
+    if pick {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 pub fn switch_box(tries: u64) -> (u64, u64) {
