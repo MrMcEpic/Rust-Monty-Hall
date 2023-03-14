@@ -3,7 +3,7 @@ use rand::Rng;
 
 fn new_boxes() -> [bool; 3] {
     //generates a list of 3 boxes all as false, then turns a random one true
-    let mut boxes = [false, false, false];
+    let mut boxes = [false; 3];
     boxes[rand::thread_rng().gen_range(0, 3)] = true;
     boxes
 }
