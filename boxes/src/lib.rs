@@ -1,4 +1,3 @@
-#![feature(drain_filter)]
 use rand::Rng;
 
 fn new_boxes() -> [bool; 3] {
@@ -38,9 +37,12 @@ pub fn switch_box(tries: u64) -> (u64, u64) {
             continue;
         } else {
             let mut options: Vec<usize> = vec![0, 1, 2];
-            options.remove(first_pick.0); //removes their inital box pick from a list of possible boxes
-            options.drain_filter(|x| !boxes[*x]); //removes a false box from list of possible boxes
-                                                  //options = options.into_iter().filter(|x| boxes[*x]).collect(); //other possible solution
+            options.retain(|&x| x != first_pick.0); // removes their initial box pick from the list of possible boxes
+
+            if let Some(index) = options.iter().position(|&x| !boxes[x]) {
+                options.remove(index); // removes the first false box
+            }
+
             if boxes[options[0]] {
                 val += 1;
             }
